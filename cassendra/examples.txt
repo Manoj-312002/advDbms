@@ -1,0 +1,159 @@
+-- basics
+
+No joins in cassandra
+joins -> require locks  
+high speed -> no joins 
+redundency -> no problem -> designed for query
+tables -> should reflect single query 
+
+partition key -> hash -> id (tokens-64base)
+each node -> there is a range 
+virtual nodes are also present 
+each node - 256 vnodes
+
+rack -> connected data center -> cluster of network of messages
+datacenter -> below that -> rack -> then -> nodes 
+
+key space -> is a database -> has replication factor -> for simple replication
+diffrent racks -> network topology
+
+
+-- ddl
+
+
+CREATE KEYSPACE test_keyspace WITH replication = { 'class' : 'SimpleStrategy' , 'replication_factor' : '1' } AND durable_writes = 'true' 
+
+durable_writes -> faster writes -> increase data inconsistency 
+
+DESCRIBE KEYSPACES
+DROP KEYSPACE test_keyspace
+
+USE test_keyspace
+
+CREATE TABLE employee_by_id ( id int PRIMARY KEY , name text , position text  );
+DESCRIBE TABLES
+
+CREATE TABLE employee_by_care_make ( car_make text , id int , car_model text , PRIMARY KEY(car_make , id ) )
+CREATE TABLE employee_by_care_make ( car_make text , id int , car_model text , PRIMARY KEY( (car_make,car_model) , id ) )
+
+-- Consistency
+
+Consistency -> RF -> 3
+Any -> writes -> retrun if written in any 
+One 
+Two  -> atleast two nodes 
+Three 
+Quoram -> majority of replicas -> (n+1/2)
+
+CONSISTENCY
+
+
+-- Insertions 
+
+
+INSERT INTO employee_by_id ( id , name , position ) VALUES ( 1 , 'john' , 'Manager' )
+SELECT * FROM employee_by_id
+
+SELECT * FROM employee_by_id WHERE id=1
+can query only according to id -> partition key 
+
+ORDER BY id ( should be only clustering column )
+primary key part should be present
+
+If same primary key used -> replaced 
+other than primary key nothing is mandatory 
+
+WHERE -> should be full partition key part 
+WHERE car_make='' AND car_model=''
+
+sort only based on wht we defined in table design
+
+
+-- Timestamps
+
+SELECT car_make , car_model , writetime(carmodel) FROM employee_by_care_make
+UPDATE employee_by_care_make SET car_model='' WHERE car_make='' AND id=''
+
+UPDATE employee_by_care_make USING TTL 60 SET car_model='' ......
+    - data valid for some time -> tokens 
+    - it turns to null
+
+-- collections 
+
+ALTER TABLE employee_by_id ADD phone set<text> ;
+UPDATE employee_by_id SET phone = {'32','23' } WHERE ....
+UPDATE employee_by_id SET phone = phone + {'32','23' } WHERE ....
+UPDATE employee_by_id SET phone = phone - {'32','23' } WHERE ....
+UPDATE employee_by_id SET phone = { } WHERE ....
+
+
+-- Secondary indexes
+
+SELECT * FROM employee_by_id WHERE name='' ALLOW FILTERING
+CREATE INDEX ON employee_by_id (name);
+    -- then no need allow filtering
+
+-- uuid
+
+mostly primary key or part of it
+
+INSERT INTO employee_by_uuid ( id , .. ) VALUES (uuid() , ... )
+CREATE TABLE employee_by_time_uuid ( id timeuuid ..  ) 
+
+... VALUES ( now() ,  )
+
+Counters -> increase or decrease
+- dedicated table 
+- primary or partition key 
+
+( purchases counter )
+
+UPDATE purchases_by_customer SET purchases = purchases + 1 WHERE id=uuid()
+-> there is no insert 
+
+
+-- importing using csv
+
+CREATE TABLE test_csv( car_make text , car_model text .... PRIMARY KEY(car_make , start_year ) )
+COPY test_csv import ( ..... ) FROM '/.../...' WITH DELEMITER ',' AND HEADER=TRUE
+
+COPY test_csv TO '/../..' WITH DELEMITER=','
+
+
+-- Materialized views 
+
+small lag in writes to maintain Consistency
+every part of primary key -> there should be filter
+
+
+CREATE MATERIALIZED VIEW test_keyspace.employee_by_department AS SELECT * FROM test_keyspace.employee_by_care_make WHERE department IS NOT NULL AND car_make IS NOT NULL AND car_model IS NOT NULL AND id IS NOT NULL PRIMARY KEY ( department , car_make , car_model , id )
+
+update in that table can be seen here 
+
+
+-- peer to peer
+
+sharding -> splitting data to different parts 
+client -> router -> hashing 
+- partition may occur 
+
+coordinator node -> writes asynchronously 
+- based on replication factor and CL 
+
+
+-- snitch -> keeps track 
+
+which is most responsive 
+- simple snitch - 
+- property file snitch - where every other node is there
+- gossiping property file snitch -> dc and rack currently on
+- spread using gossip protocol 
+
+dynamic snitch -> monitor to determine performance
+
+-- gossip 
+
+tells small node which would have propagated
+Heartbeat state 
+application state
+
