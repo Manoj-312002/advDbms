@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Products search</h1>
+    
+    <label>Category</label> <input type="text" id="name" /> <button onclick="sname()">Search by category</button> </br>
+    <label>Price</label> <input type="text" id="price" /> <button onclick="sprice()" >get less </button>
+    <h1 class="items">Items</h1> 
+    <div id="data" ></div>    
+</body>
+<script>
+    function sname(){
+        var x = document.getElementById("name").value;
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                var xml = this.responseXML;
+                var txt = "";
+                path = "/products/product[@category='" + x + "']";
+                
+                var nodes = xml.evaluate(path, xml, null, XPathResult.ANY_TYPE, null);
+                var result = nodes.iterateNext();
+                
+                while (result) {
+                    console.log( result.childNodes );
+                    txt += 
+                    "<label> "
+                        + result.childNodes[1].childNodes[0].nodeValue + "   price : " + result.childNodes[3].childNodes[0].nodeValue + 
+                    "</label><br>";
+                    result = nodes.iterateNext();
+                }
+                document.getElementById("data").innerHTML = txt;
+            }
+        };
+        xhttp.open("GET", "products.xml", true);
+        xhttp.send();
+    }
+
+    function sprice(){
+        var x = document.getElementById("price").value;
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                var xml = this.responseXML;
+                var txt = "";
+                path = "/products/product[cost<" + x + "]";
+                
+                var nodes = xml.evaluate(path, xml, null, XPathResult.ANY_TYPE, null);
+                var result = nodes.iterateNext();
+                
+                while (result) {
+                    console.log( result.childNodes );
+                    txt += 
+                    "<label> "
+                        + result.childNodes[1].childNodes[0].nodeValue + "   price : " + result.childNodes[3].childNodes[0].nodeValue + 
+                    "</label><br>";
+                    result = nodes.iterateNext();
+                }
+                document.getElementById("data").innerHTML = txt;
+            }
+        };
+        xhttp.open("GET", "products.xml", true);
+        xhttp.send();   
+    }
+
+    var x = document.getElementById("name").value;
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var xml = this.responseXML;
+            var txt = "";
+            path = "/products/product";
+            
+            var nodes = xml.evaluate(path, xml, null, XPathResult.ANY_TYPE, null);
+            var result = nodes.iterateNext();
+            
+            while (result) {
+                console.log( result.childNodes );
+                txt += 
+                "<label> "
+                    + result.childNodes[1].childNodes[0].nodeValue + "   price : " + result.childNodes[3].childNodes[0].nodeValue + 
+                "</label><br>";
+                result = nodes.iterateNext();
+            }
+            document.getElementById("data").innerHTML = txt;
+        }
+    };
+    xhttp.open("GET", "products.xml", true);
+    xhttp.send();
+</script>
+
+</html>

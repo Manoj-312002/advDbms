@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/css" href="trial.css"?>
+<!DOCTYPE products [
+    <!ELEMENT products (product+)>
+    <!ELEMENT product (name,cost,qty,likes,reviews)>
+    <!ATTLIST product category CDATA "general">
+    <!ELEMENT name (#PCDATA)>
+    <!ELEMENT cost (#PCDATA)>
+    <!ELEMENT qty (#PCDATA)>
+    <!ELEMENT likes (#PCDATA)>
+    <!ELEMENT reviews (review+)>
+    <!ELEMENT review (#PCDATA)>
+]>
+
+<products>
+    <product category="mobiles">
+        <name>samsung phone</name>
+        <cost>20000</cost>
+        <qty>10</qty>
+        <likes>50</likes>
+        <reviews>
+            <review>Nice display</review>
+            <review>Fast processing</review>
+        </reviews>
+    </product>
+    <product category="home" >
+        <name>product-1</name>
+        <cost>5000</cost>
+        <qty>10</qty>
+        <likes>50</likes>
+        <reviews>
+            <review>review-1-1</review>
+            <review>review-1-2</review>
+        </reviews>
+    </product>
+    <product category="computers" >
+        <name>product-2</name>
+        <cost>50000</cost>
+        <qty>43</qty>
+        <likes>500</likes>
+        <reviews>
+            <review>review-2-1</review>
+            <review>review-2-2</review>
+            <review>review-2-3</review>
+        </reviews>
+    </product>
+    <product >
+        <name>product-3</name>
+        <cost>10000</cost>
+        <qty>4</qty>
+        <likes>5000</likes>
+        <reviews>
+            <review>review-3-1</review>
+            <review>review-3-2</review>
+            <review>review-3-3</review>
+        </reviews>
+    </product>
+</products>

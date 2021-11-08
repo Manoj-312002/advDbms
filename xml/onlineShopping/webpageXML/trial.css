@@ -1,0 +1,26 @@
+products {
+    margin: 20px;
+}
+product {
+    font: 1em sans-serif;
+    margin: 20px;
+}
+name {
+    background-color: black;
+    color: white;
+    padding: 10px;
+    width: 100%;
+    font-size: 2em;
+    font-weight: bold;
+    display: block;
+    margin: 10px;
+}
+cost, qty, reviews, likes{
+    display: block;
+    padding: 10px;
+}
+
+review {
+    display: block;
+    margin: 20px;
+}
