@@ -89,8 +89,4 @@
       </plugins>
     </pluginManagement>
   </build>
-
-    <configuration>
-      <logger  level="OFF" />
-    </configuration>
 </project>

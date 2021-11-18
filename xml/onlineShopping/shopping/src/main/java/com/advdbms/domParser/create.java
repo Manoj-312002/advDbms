@@ -52,7 +52,7 @@ public class create {
         
         d.appendChild(root);        
         Transformer t = TransformerFactory.newInstance().newTransformer();
-        t.transform(new DOMSource(d) , new StreamResult( new FileOutputStream("/media/ssmj/File/Programming/webdev/advdbms/xml/onlineShopping/webpage/productJava.xml") ) );
+        t.transform(new DOMSource(d) , new StreamResult( new FileOutputStream("/media/ssmj/File/Programming/webdev/advdbms/xml/onlineShopping/webpageXML/productJava.xml") ) );
         sc.close();
     }    
 }

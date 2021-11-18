@@ -7,7 +7,7 @@ import org.w3c.dom.*;
 
 public class view {
     public static void main(String[] args) throws Exception{
-        File f = new File("/media/ssmj/File/Programming/webdev/advdbms/xml/onlineShopping/webpage/products.xml");
+        File f = new File("/media/ssmj/File/Programming/webdev/advdbms/xml/onlineShopping/webpageXML/products.xml");
         DocumentBuilderFactory fc = DocumentBuilderFactory.newInstance();
         DocumentBuilder db = fc.newDocumentBuilder();
         Document d = db.parse(f);

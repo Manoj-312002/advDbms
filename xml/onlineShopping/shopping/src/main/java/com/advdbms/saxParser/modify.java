@@ -48,7 +48,7 @@ public class modify extends DefaultHandler{
     }
     public void print() throws Exception{
         ans = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>" + ans;
-        FileOutputStream fos = new FileOutputStream("/media/ssmj/File/Programming/webdev/advdbms/xml/onlineShopping/webpage/productJava.xml");
+        FileOutputStream fos = new FileOutputStream("/media/ssmj/File/Programming/webdev/advdbms/xml/onlineShopping/webpageXML/productJava.xml");
         fos.write(ans.getBytes());
         fos.close();
     }
@@ -59,7 +59,7 @@ public class modify extends DefaultHandler{
         System.out.print("Enter product name to decrement quantity : ");
         String s = sc.nextLine();
         v.sr = s;
-        p.parse(new FileInputStream("/media/ssmj/File/Programming/webdev/advdbms/xml/onlineShopping/webpage/productJava.xml"), v );
+        p.parse(new FileInputStream("/media/ssmj/File/Programming/webdev/advdbms/xml/onlineShopping/webpageXML/productJava.xml"), v );
         v.print();
         sc.close();
     } 

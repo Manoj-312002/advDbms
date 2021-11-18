@@ -37,6 +37,6 @@ public class view extends DefaultHandler{
     }
     public static void main(String[] args) throws Exception{
         SAXParser p = SAXParserFactory.newInstance().newSAXParser();
-        p.parse(new FileInputStream("/media/ssmj/File/Programming/webdev/advdbms/xml/onlineShopping/webpage/products.xml"), new view() );
+        p.parse(new FileInputStream("/media/ssmj/File/Programming/webdev/advdbms/xml/onlineShopping/webpageXML/products.xml"), new view() );
     }    
 }

@@ -4,7 +4,7 @@
 <!DOCTYPE products [
     <!ELEMENT products (product+)>
     <!ELEMENT product (name,cost,qty,likes,reviews)>
-    <!ATTLIST product category CDATA "general">
+    <!ATTLIST product category CDATA "general" src CDATA #REQUIRED>
     <!ELEMENT name (#PCDATA)>
     <!ELEMENT cost (#PCDATA)>
     <!ELEMENT qty (#PCDATA)>
@@ -14,7 +14,7 @@
 ]>
 
 <products>
-    <product category="mobiles">
+    <product category="mobiles" src="https://m.media-amazon.com/images/I/41ZGJxnJu1S.jpg">
         <name>samsung phone</name>
         <cost>20000</cost>
         <qty>10</qty>
@@ -24,18 +24,18 @@
             <review>Fast processing</review>
         </reviews>
     </product>
-    <product category="mobiles">
+    <product category="mobiles" src="https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-13-family-select-2021?wid=440&amp;hei=600&amp;fmt=jpeg&amp;qlt=80&amp;.v=1629842667000" >
         <name>iphone</name>
         <cost>80000</cost>
-        <qty>10</qty>
+        <qty>10</qty>   
         <likes>500</likes>
         <reviews>
             <review>Nice display</review>
             <review>Fast processing</review>
         </reviews>
     </product>
-    <product category="home" >
-        <name>product-1</name>
+    <product category="home" src="https://st.depositphotos.com/1216711/3356/v/600/depositphotos_33569319-stock-illustration-the-empty-white-refrigerator-and.jpg" >
+        <name>Fridge</name>
         <cost>5000</cost>
         <qty>10</qty>
         <likes>50</likes>
@@ -44,8 +44,8 @@
             <review>review-1-2</review>
         </reviews>
     </product>
-    <product category="computers" >
-        <name>product-2</name>
+    <product category="computers" src="https://images.unsplash.com/photo-1587831990711-23ca6441447b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8ZGVza3RvcCUyMGNvbXB1dGVyfGVufDB8fDB8fA%3D%3D&amp;ixlib=rb-1.2.1&amp;w=500&amp;q=80" >
+        <name>Computer</name>
         <cost>50000</cost>
         <qty>43</qty>
         <likes>500</likes>
@@ -55,7 +55,7 @@
             <review>review-2-3</review>
         </reviews>
     </product>
-    <product >
+    <product src="https://m.media-amazon.com/images/I/41ZGJxnJu1S.jpg" >
         <name>product-3</name>
         <cost>10000</cost>
         <qty>4</qty>
