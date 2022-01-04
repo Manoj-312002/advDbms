@@ -57,3 +57,4 @@ select Category , avg(Sentiment_Polarity) FROM rating , apps , users WHERE apps.
 
 select Category , avg(rating) FROM rating , apps , users WHERE apps.id = rating.appId AND users.id = rating.userId GROUP BY Category;
 
+select * from rating pivot( avg( Sentiment_Polarity ) for userId in (1,2,3) );
