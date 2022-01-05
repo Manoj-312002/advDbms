@@ -26,6 +26,7 @@ supervise( Emp2 , Emp1 ) :-
 
 superior( Emp1 , Emp2 ) :- supervise( Emp1 , Emp2 ).
 superior( Emp1 , Emp2 ) :- supervise( Emp1 , X ) , superior( X , Emp2 ).
+
 subordinate( Emp1 , Emp2 ) :- superior( Emp2 , Emp1 ).
 over_40k_emp(X) :- employee(X) , salary(X,Y) , Y >= 40000.
 main_productx_emp(X) :- employee(X) , works_on(X , 'ProductX' , Y ) , Y >= 20.
